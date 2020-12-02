@@ -16,26 +16,31 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deveficiente.blblioteca.novolivro.Livro;
 
 @RestController
+//5
 public class NovaInstanciaController {
 	
 	@Autowired
+	//1
 	private LivroRepository repository;
 	@Autowired
 	private EntityManager manager;
 
 	@PostMapping(value = "/livro/{isbn}/instancias")
 	@Transactional
+	//1 NovaInstanciaRequest
 	public ResponseEntity<?> executa(@PathVariable("isbn") String isbn,@RequestBody @Valid NovaInstanciaRequest request) {
+		//1
 		Optional<Livro> possivelLivro = repository.findByIsbn(isbn);
-		if(possivelLivro.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
+		//1
+		return possivelLivro.map(livro -> {
+			//1
+			Instancia novaInstancia = request.toModel(possivelLivro.get());
+			
+			manager.persist(novaInstancia);
+			
+			return ResponseEntity.ok(novaInstancia.getId());			
+		}).orElse(ResponseEntity.notFound().build());
 		
-		Instancia novaInstancia = request.toModel(possivelLivro.get());
-		manager.persist(novaInstancia);
-		
-		
-		return ResponseEntity.ok(novaInstancia.getId());
 	}
 
 }
