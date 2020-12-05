@@ -22,6 +22,11 @@ public class Instancia {
 	@ManyToOne
 	private @NotNull @Valid Livro livro;
 
+	@Deprecated
+	public Instancia() {
+
+	}
+	
 	public Instancia(@NotNull Tipo tipo, @NotNull @Valid Livro livro) {
 		this.tipo = tipo;
 		this.livro = livro;
@@ -31,5 +36,11 @@ public class Instancia {
 		Assert.state(id!=null,"O id está nulo. Chamou o persist?");
 		return id;
 	}
+	
+	public boolean verificaTipo(Tipo tipo) {
+		return this.tipo.equals(tipo);		
+	}
+	
+	
 
 }
