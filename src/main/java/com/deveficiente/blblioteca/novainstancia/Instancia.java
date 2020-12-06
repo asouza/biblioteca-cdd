@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.util.Assert;
 
 import com.deveficiente.blblioteca.novolivro.Livro;
+import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Entity
 public class Instancia {
@@ -37,8 +38,8 @@ public class Instancia {
 		return id;
 	}
 	
-	public boolean verificaTipo(Tipo tipo) {
-		return this.tipo.equals(tipo);		
+	public boolean aceita(Usuario usuario) {
+		return this.tipo.aceita(usuario);
 	}
 	
 	

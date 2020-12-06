@@ -56,22 +56,12 @@ public class Livro {
 		return id;
 	}
 
+	//2
+	//1
 	public boolean aceitaSerEmprestado(Usuario usuario) {
-		boolean podeSerEmprestadoParaQualquerPessoa = instancias.stream()
-				.anyMatch(instancia -> instancia.verificaTipo(Tipo.LIVRE));
-
 		//1
-		if (podeSerEmprestadoParaQualquerPessoa) {
-			return true;
-		}
-
-		//1
-		if(usuario.padrao()) {
-			return false;
-		}
-		
-		return instancias.stream().anyMatch(instancia -> instancia.verificaTipo(Tipo.RESTRITO));
-
+		return instancias.stream()
+				.anyMatch(instancia -> instancia.aceita(usuario));
 	}
 
 }

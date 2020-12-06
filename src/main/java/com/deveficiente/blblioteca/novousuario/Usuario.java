@@ -32,8 +32,8 @@ public class Usuario {
 		return id;
 	}
 
-	public boolean padrao() {
-		return this.tipo.equals(TipoUsuario.PADRAO);
+	public boolean tipo(TipoUsuario tipoBuscado) {
+		return this.tipo.equals(tipoBuscado);
 	}
 
 }
