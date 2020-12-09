@@ -17,6 +17,7 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	//1
 	private @NotNull TipoUsuario tipo;
 	
 	@Deprecated
@@ -37,8 +38,9 @@ public class Usuario {
 		return this.tipo.equals(tipoBuscado);
 	}
 
-	public boolean tempoEmprestimoValido(NovoEmprestimoRequest request) {
-		return tipo.aceitaTempoEmprestimo(request);
+	//1
+	public boolean tempoEmprestimoValido(PedidoEmprestimoComTempo pedido) {
+		return tipo.aceitaTempoEmprestimo(pedido);
 	}
 
 }

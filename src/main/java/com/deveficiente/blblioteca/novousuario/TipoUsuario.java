@@ -1,24 +1,23 @@
 package com.deveficiente.blblioteca.novousuario;
 
-import com.deveficiente.blblioteca.emprestimo.NovoEmprestimoRequest;
-
 public enum TipoUsuario {
 
 	PADRAO{
 
 		@Override
-		boolean aceitaTempoEmprestimo(NovoEmprestimoRequest request) {
-			return request.temTempoEmprestimo();
+		boolean aceitaTempoEmprestimo(PedidoEmprestimoComTempo pedido) {
+			return pedido.temTempoEmprestimo();
 		}
 		
 	},PESQUISADOR {
 
 		@Override
-		boolean aceitaTempoEmprestimo(NovoEmprestimoRequest request) {
+		boolean aceitaTempoEmprestimo(PedidoEmprestimoComTempo pedido) {
 			return true;
 		}
 		
 	};
 
-	abstract boolean aceitaTempoEmprestimo(NovoEmprestimoRequest request);
+	abstract boolean aceitaTempoEmprestimo(
+			PedidoEmprestimoComTempo pedido);
 }

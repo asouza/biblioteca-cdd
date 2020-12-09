@@ -7,7 +7,10 @@ import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Range;
 
-public class NovoEmprestimoRequest {
+import com.deveficiente.blblioteca.novousuario.PedidoEmprestimoComTempo;
+
+//1
+public class NovoEmprestimoRequest implements PedidoEmprestimoComTempo {
 
 	@NotNull
 	@Positive
