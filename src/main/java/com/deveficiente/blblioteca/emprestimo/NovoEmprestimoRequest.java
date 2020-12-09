@@ -1,5 +1,7 @@
 package com.deveficiente.blblioteca.emprestimo;
 
+import java.util.Optional;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -33,6 +35,10 @@ public class NovoEmprestimoRequest {
 	
 	public Long getIdLivro() {
 		return idLivro;
+	}
+
+	public boolean temTempoEmprestimo() {
+		return Optional.ofNullable(tempo).isPresent();
 	}
 
 }

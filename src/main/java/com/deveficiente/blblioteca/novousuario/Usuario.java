@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.util.Assert;
 
+import com.deveficiente.blblioteca.emprestimo.NovoEmprestimoRequest;
 import com.deveficiente.blblioteca.novolivro.Livro;
 
 @Entity
@@ -34,6 +35,10 @@ public class Usuario {
 
 	public boolean tipo(TipoUsuario tipoBuscado) {
 		return this.tipo.equals(tipoBuscado);
+	}
+
+	public boolean tempoEmprestimoValido(NovoEmprestimoRequest request) {
+		return tipo.aceitaTempoEmprestimo(request);
 	}
 
 }
