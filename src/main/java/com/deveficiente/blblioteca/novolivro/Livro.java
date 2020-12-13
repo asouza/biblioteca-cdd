@@ -2,9 +2,8 @@ package com.deveficiente.blblioteca.novolivro;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,16 +11,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.ISBN;
 import org.hibernate.validator.constraints.ISBN.Type;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.util.Assert;
 
+import com.deveficiente.blblioteca.emprestimo.Emprestimo;
 import com.deveficiente.blblioteca.novainstancia.Instancia;
-import com.deveficiente.blblioteca.novainstancia.Tipo;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Entity
@@ -62,6 +63,17 @@ public class Livro {
 		//1
 		return instancias.stream()
 				.anyMatch(instancia -> instancia.aceita(usuario));
+	}
+
+	public Emprestimo criaEmprestimo(@NotNull @Valid Usuario usuario,
+			@Positive int tempo) {
+		Assert.isTrue(this.aceitaSerEmprestado(usuario),"Você está gerar um emprestimo de um livro que não aceita ser emprestado para o usuario "+usuario.getId());
+		
+		Instancia instanciaSelecionada = instancias.stream()
+			.filter(instancia -> instancia.aceita(usuario))
+			.findFirst().get();
+		
+		return new Emprestimo(usuario,instanciaSelecionada,tempo);
 	}
 
 }

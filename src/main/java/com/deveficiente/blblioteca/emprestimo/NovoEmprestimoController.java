@@ -28,9 +28,9 @@ public class NovoEmprestimoController {
 	@PostMapping(value = "/api/emprestimos")
 	@Transactional
 	public Long executa(@RequestBody @Valid NovoEmprestimoRequest request) {
-//		Classe novo = request.toModel();
-//		manager.persist(novo);
-//		return novo.getId();
-		return 1l;
+				
+		Emprestimo novo = request.toModel(manager);
+		manager.persist(novo);
+		return novo.getId();
 	}
 }

@@ -1,13 +1,18 @@
 package com.deveficiente.blblioteca.emprestimo;
 
+import java.util.Objects;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Range;
+import org.springframework.util.Assert;
 
+import com.deveficiente.blblioteca.novolivro.Livro;
 import com.deveficiente.blblioteca.novousuario.PedidoEmprestimoComTempo;
+import com.deveficiente.blblioteca.novousuario.Usuario;
 
 //1
 public class NovoEmprestimoRequest implements PedidoEmprestimoComTempo {
@@ -42,6 +47,23 @@ public class NovoEmprestimoRequest implements PedidoEmprestimoComTempo {
 
 	public boolean temTempoEmprestimo() {
 		return Optional.ofNullable(tempo).isPresent();
+	}
+
+	public Emprestimo toModel(EntityManager manager) {
+		//1
+		Livro livro = manager.find(Livro.class, idLivro);
+		//1
+		Usuario usuario = manager.find(Usuario.class,idUsuario);
+		
+		Assert.state(Objects.nonNull(livro),"O livro precisa existir para criar um emprestimo");
+		Assert.state(Objects.nonNull(usuario),"O usuario precisa existir para criar um emprestimo");
+		Assert.state(usuario.tempoEmprestimoValido(this),"Olha, você está tentando criar um emprestimo com um tempo não liberado para este usuario");
+				
+		//2
+		int limiteMaximoDeTempoDeEmprestimo = 60;
+		int tempoDefinido = tempo == null ? limiteMaximoDeTempoDeEmprestimo : tempo;
+		return livro.criaEmprestimo(usuario,tempoDefinido);
+		
 	}
 
 }
