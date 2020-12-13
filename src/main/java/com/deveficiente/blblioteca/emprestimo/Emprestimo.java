@@ -30,6 +30,7 @@ public class Emprestimo {
 
 	public Emprestimo(@NotNull @Valid Usuario usuario,
 			@NotNull @Valid Instancia instanciaSelecionada, @Positive int tempo) {
+				Assert.isTrue(instanciaSelecionada.aceita(usuario),"Olha, você está construindo um emprestimo com instancia que nao aceita o usuario. Será que você verificou corretamente antes?");
 				this.usuario = usuario;
 				this.instanciaSelecionada = instanciaSelecionada;
 				this.tempo = tempo;
