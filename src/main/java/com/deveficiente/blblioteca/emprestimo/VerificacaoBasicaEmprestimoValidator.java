@@ -11,6 +11,7 @@ import com.deveficiente.blblioteca.novolivro.Livro;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Component
+//7
 public class VerificacaoBasicaEmprestimoValidator implements Validator {
 
 	private EntityManager manager;
@@ -50,6 +51,11 @@ public class VerificacaoBasicaEmprestimoValidator implements Validator {
 		//1
 		if(!usuario.tempoEmprestimoValido(request)) {
 			errors.reject(null, "Você precisa definir o tempo do emprestimo");
+		}
+		
+		//1
+		if(!livro.estaDisponivelParaEmprestimo()) {
+			errors.reject(null, "Este livro não está disponível para emprestimo");		
 		}
 
 	}

@@ -26,7 +26,7 @@ import com.deveficiente.blblioteca.novainstancia.Instancia;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Entity
-//5
+//6
 public class Livro {
 
 	@Id
@@ -69,13 +69,21 @@ public class Livro {
 	public Emprestimo criaEmprestimo(@NotNull @Valid Usuario usuario,
 			@Positive int tempo) {
 		Assert.isTrue(this.aceitaSerEmprestado(usuario),"Você está gerar um emprestimo de um livro que não aceita ser emprestado para o usuario "+usuario.getId());
+		
 		//1
 		Instancia instanciaSelecionada = instancias.stream()
 			.filter(instancia -> instancia.aceita(usuario))
 			.findFirst().get();
 		
+		Assert.isTrue(instanciaSelecionada.disponivelParaEmprestimo(),"Olha, o seu código não deveria tentar criar um emprestimo para uma instancia que não está disponível");
+		
 		//1
-		return new Emprestimo(usuario,instanciaSelecionada,tempo);
+		Emprestimo emprestimo = new Emprestimo(usuario,instanciaSelecionada,tempo);
+		return emprestimo;
+	}
+
+	public boolean estaDisponivelParaEmprestimo() {//1
+		return instancias.stream().anyMatch(instancia -> instancia.disponivelParaEmprestimo());
 	}
 
 }
