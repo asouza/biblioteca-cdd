@@ -1,7 +1,7 @@
 package com.deveficiente.blblioteca.novainstancia;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.util.Assert;
 
@@ -31,8 +34,12 @@ public class Instancia {
 	private @NotNull @Valid Livro livro;
 	@OneToMany(mappedBy = "instanciaSelecionada")
 	//1
-	private List<Emprestimo> emprestimos = new ArrayList<>();
-
+	@OrderBy("instanteEmprestimo asc")
+	private SortedSet<Emprestimo> emprestimos = new TreeSet<>();
+	
+	@Version
+	private int versao;
+	
 	@Deprecated
 	public Instancia() {
 
@@ -58,6 +65,19 @@ public class Instancia {
 				||
 				//1
 				this.emprestimos.stream().allMatch(emprestimo -> emprestimo.foiDevolvido());
+	}
+
+	public Emprestimo criaEmprestimo(@NotNull @Valid Usuario usuario,
+			@Positive int tempo) {
+		Assert.state(this.disponivelParaEmprestimo(),"Não criamos emprestimos de instancias que não estão disponíveis");
+		//1
+		Emprestimo emprestimo = new Emprestimo(usuario,this,tempo);
+		boolean adicionou = this.emprestimos.add(emprestimo);
+		
+		Assert.state(adicionou,"Por algum motivo a adicao do emprestimo falhou para esta instancia. Será que rolou problema de concorrencia?");
+		
+		this.versao++;		
+		return emprestimo;
 	}
 
 	

@@ -78,8 +78,7 @@ public class Livro {
 		Assert.isTrue(instanciaSelecionada.disponivelParaEmprestimo(),"Olha, o seu código não deveria tentar criar um emprestimo para uma instancia que não está disponível");
 		
 		//1
-		Emprestimo emprestimo = new Emprestimo(usuario,instanciaSelecionada,tempo);
-		return emprestimo;
+		return instanciaSelecionada.criaEmprestimo(usuario,tempo);
 	}
 
 	public boolean estaDisponivelParaEmprestimo() {//1

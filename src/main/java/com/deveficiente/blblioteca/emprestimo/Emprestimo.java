@@ -18,7 +18,7 @@ import com.deveficiente.blblioteca.novainstancia.Instancia;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Entity
-public class Emprestimo {
+public class Emprestimo implements Comparable<Emprestimo> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +31,7 @@ public class Emprestimo {
 	private @NotNull @Valid Instancia instanciaSelecionada;
 	private @Positive int tempo;	
 	private Instant instanteDevolucao;
+	private Instant instanteEmprestimo = Instant.now();;
 	
 	@Deprecated
 	public Emprestimo() {
@@ -39,7 +40,7 @@ public class Emprestimo {
 
 	public Emprestimo(@NotNull @Valid Usuario usuario,
 			@NotNull @Valid Instancia instanciaSelecionada, @Positive int tempo) {
-				Assert.isTrue(instanciaSelecionada.aceita(usuario),"Olha, você está construindo um emprestimo com instancia que nao aceita o usuario. Será que você verificou corretamente antes?");				
+				Assert.isTrue(instanciaSelecionada.aceita(usuario),"Olha, você está construindo um emprestimo com instancia que nao aceita o usuario. Será que você verificou corretamente antes?");
 				this.usuario = usuario;
 				this.instanciaSelecionada = instanciaSelecionada;
 				this.tempo = tempo;
@@ -52,6 +53,11 @@ public class Emprestimo {
 
 	public boolean foiDevolvido() {
 		return Objects.nonNull(instanteDevolucao);
+	}
+
+	@Override
+	public int compareTo(Emprestimo outro) {
+		return this.instanteEmprestimo.compareTo(outro.instanteEmprestimo);
 	}
 
 }
