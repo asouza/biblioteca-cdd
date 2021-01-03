@@ -68,7 +68,9 @@ public class Livro {
 
 	public Emprestimo criaEmprestimo(@NotNull @Valid Usuario usuario,
 			@Positive int tempo) {
-		Assert.isTrue(this.aceitaSerEmprestado(usuario),"Você está gerar um emprestimo de um livro que não aceita ser emprestado para o usuario "+usuario.getId());
+		Assert.state(this.aceitaSerEmprestado(usuario),"Você está gerar um emprestimo de um livro que não aceita ser emprestado para o usuario "+usuario.getId());
+		Assert.state(this.estaDisponivelParaEmprestimo(),"O livro precisa estar disponível para empréstimo para ser emprestado");
+		Assert.state(usuario.aindaPodeSolicitarEmprestimo(),"Este usuário já está no limite de empréstimos");
 		
 		//1
 		Instancia instanciaSelecionada = instancias.stream()
