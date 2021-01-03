@@ -72,10 +72,10 @@ public class Livro {
 		
 		//1
 		Instancia instanciaSelecionada = instancias.stream()
-			.filter(instancia -> instancia.aceita(usuario))
+			.filter(instancia -> instancia.disponivel(usuario))
 			.findFirst().get();
 		
-		Assert.isTrue(instanciaSelecionada.disponivelParaEmprestimo(),"Olha, o seu código não deveria tentar criar um emprestimo para uma instancia que não está disponível");
+		Assert.state(instanciaSelecionada.disponivelParaEmprestimo(),"Olha, o seu código não deveria tentar criar um emprestimo para uma instancia que não está disponível");
 		
 		//1
 		return instanciaSelecionada.criaEmprestimo(usuario,tempo);

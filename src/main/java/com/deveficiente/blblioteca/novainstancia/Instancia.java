@@ -80,6 +80,9 @@ public class Instancia {
 		return emprestimo;
 	}
 
-	
+	public boolean disponivel(@NotNull @Valid Usuario usuario) {
+		return this.aceita(usuario) && this.disponivelParaEmprestimo();
+	}
+
 
 }

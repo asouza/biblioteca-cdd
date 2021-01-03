@@ -44,9 +44,7 @@ public class VerificacaoBasicaEmprestimoValidator implements Validator {
 		Assert.state(livro!=null,"O livro tem que ser diferente de nulo para fazer a validacao");
 		
 		//1
-		if(!livro.aceitaSerEmprestado(usuario)) {
-			errors.reject(null, "Este usuario não pode pegar este livro");
-		}
+		new ValicacaoEspecificaEmprestimoLivro().valida(livro,usuario,errors);
 		
 		//1
 		if(!usuario.tempoEmprestimoValido(request)) {
@@ -54,9 +52,10 @@ public class VerificacaoBasicaEmprestimoValidator implements Validator {
 		}
 		
 		//1
-		if(!livro.estaDisponivelParaEmprestimo()) {
-			errors.reject(null, "Este livro não está disponível para emprestimo");		
+		if(!usuario.aindaPodeSolicitarEmprestimo()) {
+			errors.reject(null, "Você já está no limite de emprestimos. O limite atual é 5");
 		}
+		
 
 	}
 
