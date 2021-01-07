@@ -13,7 +13,8 @@ public class NovaInstanciaRequest {
 		this.tipo = tipo;
 	}
 
-	public Instancia toModel(Livro livro) {
-		return new Instancia(tipo,livro);
+	public Tipo getTipo() {
+		return tipo;
 	}
+
 }

@@ -46,7 +46,7 @@ public class NovoEmprestimoRequest implements PedidoEmprestimoComTempo {
 	}
 
 	public boolean temTempoEmprestimo() {
-		return Optional.ofNullable(tempo).isPresent();
+		return Objects.nonNull(tempo);
 	}
 
 	public Emprestimo toModel(EntityManager manager) {

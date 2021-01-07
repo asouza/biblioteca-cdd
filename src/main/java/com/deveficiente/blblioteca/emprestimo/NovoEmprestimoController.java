@@ -30,7 +30,6 @@ public class NovoEmprestimoController {
 	public Long executa(@RequestBody @Valid NovoEmprestimoRequest request) {
 				
 		Emprestimo novo = request.toModel(manager);
-		System.out.println("executa");
 		manager.persist(novo);
 		return novo.getId();
 	}

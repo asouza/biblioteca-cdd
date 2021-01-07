@@ -23,10 +23,11 @@ import org.springframework.util.Assert;
 
 import com.deveficiente.blblioteca.emprestimo.Emprestimo;
 import com.deveficiente.blblioteca.novainstancia.Instancia;
+import com.deveficiente.blblioteca.novainstancia.Tipo;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Entity
-//6
+//7
 public class Livro {
 
 	@Id
@@ -85,6 +86,14 @@ public class Livro {
 
 	public boolean estaDisponivelParaEmprestimo() {//1
 		return instancias.stream().anyMatch(instancia -> instancia.disponivelParaEmprestimo());
+	}
+
+	
+	//1
+	public Instancia novaInstancia(Tipo tipo) {
+		Instancia novaInstancia = new Instancia(tipo, this);
+		this.instancias.add(novaInstancia);
+		return novaInstancia;
 	}
 
 }

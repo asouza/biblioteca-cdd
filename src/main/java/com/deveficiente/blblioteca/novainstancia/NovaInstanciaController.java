@@ -34,7 +34,7 @@ public class NovaInstanciaController {
 		//1
 		return possivelLivro.map(livro -> {
 			//1
-			Instancia novaInstancia = request.toModel(possivelLivro.get());
+			Instancia novaInstancia = livro.novaInstancia(request.getTipo());
 			
 			manager.persist(novaInstancia);
 			
