@@ -4,3 +4,9 @@
   
 * História do refactor para facilitar o teste, mas sem criar código para o teste. Usuario
   cria o emprestimo e não o livro agora.  
+  
+* Utilização da Optional.ofNullable para fugir do operador ternário e do teste
+  
+* Boundary testing para olhar se o usuario pode ainda solicitar emprestimo
+
+* Teste parametrizado para não ficar escrevendo código a toa  
