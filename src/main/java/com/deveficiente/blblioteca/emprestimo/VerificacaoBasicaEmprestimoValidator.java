@@ -1,5 +1,7 @@
 package com.deveficiente.blblioteca.emprestimo;
 
+import java.util.Objects;
+
 import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Component;
@@ -40,8 +42,8 @@ public class VerificacaoBasicaEmprestimoValidator implements Validator {
 		//1
 		Livro livro = manager.find(Livro.class,request.getIdLivro());
 		
-		Assert.state(usuario!=null,"O usuario tem que ser diferente de nulo para fazer a validacao");
-		Assert.state(livro!=null,"O livro tem que ser diferente de nulo para fazer a validacao");
+		Assert.state(Objects.nonNull(usuario),"O usuario tem que ser diferente de nulo para fazer a validacao");
+		Assert.state(Objects.nonNull(livro),"O livro tem que ser diferente de nulo para fazer a validacao");
 		
 		//1
 		new ValicacaoEspecificaEmprestimoLivro().valida(livro,usuario,errors);

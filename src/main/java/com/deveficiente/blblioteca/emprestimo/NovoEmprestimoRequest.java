@@ -62,7 +62,7 @@ public class NovoEmprestimoRequest implements PedidoEmprestimoComTempo {
 		//2
 		int limiteMaximoDeTempoDeEmprestimo = 60;
 		int tempoDefinido = tempo == null ? limiteMaximoDeTempoDeEmprestimo : tempo;
-		return livro.criaEmprestimo(usuario,tempoDefinido);
+		return usuario.criaEmprestimo(livro,tempoDefinido);
 		
 	}
 

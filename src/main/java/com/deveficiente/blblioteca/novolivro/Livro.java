@@ -11,23 +11,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.ISBN;
 import org.hibernate.validator.constraints.ISBN.Type;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.util.Assert;
 
-import com.deveficiente.blblioteca.emprestimo.Emprestimo;
 import com.deveficiente.blblioteca.novainstancia.Instancia;
 import com.deveficiente.blblioteca.novainstancia.Tipo;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Entity
-//7
+//6
 public class Livro {
 
 	@Id
@@ -59,7 +56,7 @@ public class Livro {
 		return id;
 	}
 
-	//2
+	//2 
 	//1
 	public boolean aceitaSerEmprestado(Usuario usuario) {
 		//1
@@ -67,33 +64,25 @@ public class Livro {
 				.anyMatch(instancia -> instancia.aceita(usuario));
 	}
 
-	public Emprestimo criaEmprestimo(@NotNull @Valid Usuario usuario,
-			@Positive int tempo) {
-		Assert.state(this.aceitaSerEmprestado(usuario),"Você está gerar um emprestimo de um livro que não aceita ser emprestado para o usuario "+usuario.getId());
-		Assert.state(this.estaDisponivelParaEmprestimo(),"O livro precisa estar disponível para empréstimo para ser emprestado");
-		Assert.state(usuario.aindaPodeSolicitarEmprestimo(),"Este usuário já está no limite de empréstimos");
-		
-		//1
-		Instancia instanciaSelecionada = instancias.stream()
-			.filter(instancia -> instancia.disponivel(usuario))
-			.findFirst().get();
-		
-		Assert.state(instanciaSelecionada.disponivelParaEmprestimo(),"Olha, o seu código não deveria tentar criar um emprestimo para uma instancia que não está disponível");
-		
-		//1
-		return instanciaSelecionada.criaEmprestimo(usuario,tempo);
-	}
-
+	//1 lambda
 	public boolean estaDisponivelParaEmprestimo() {//1
 		return instancias.stream().anyMatch(instancia -> instancia.disponivelParaEmprestimo());
 	}
 
 	
-	//1
+	//1 Tipo
 	public Instancia novaInstancia(Tipo tipo) {
 		Instancia novaInstancia = new Instancia(tipo, this);
 		this.instancias.add(novaInstancia);
 		return novaInstancia;
+	}
+
+	//1 lambda
+	public Optional<Instancia> buscaInstanciaDisponivel(Usuario usuario) {
+		//1
+		return instancias.stream()
+			.filter(instancia -> instancia.disponivel(usuario))
+			.findFirst();
 	}
 
 }

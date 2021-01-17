@@ -1,6 +1,5 @@
 package com.deveficiente.blblioteca.emprestimo;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
@@ -51,7 +49,7 @@ public class ValicacaoEspecificaEmprestimoLivroTest {
 		
 		ReflectionTestUtils.setField(usuario, "id", 1l);
 		
-		livro.criaEmprestimo(usuario, 60);
+		usuario.criaEmprestimo(livro, 60);
 		
 		Errors errors = Mockito.spy(new BeanPropertyBindingResult(new Object(), "target"));
 		
