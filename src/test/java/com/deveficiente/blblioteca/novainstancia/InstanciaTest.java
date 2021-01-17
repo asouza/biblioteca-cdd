@@ -26,7 +26,7 @@ public class InstanciaTest {
 
 		Assertions.assertTrue(instancia.disponivelParaEmprestimo());
 	}
-	
+
 	@DisplayName("deveria estar disponível para emprestimo se todos emprestimos foram devolvidos")
 	@Test
 	void teste2() throws Exception {
@@ -34,12 +34,13 @@ public class InstanciaTest {
 		Instancia instancia = new Instancia(Tipo.LIVRE, livro);
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
 		Emprestimo emprestimoCriado = instancia.criaEmprestimo(usuario, 40);
-		//ainda nao foi implementado a devolucao do emprestimo
-		ReflectionTestUtils.setField(emprestimoCriado, "instanteDevolucao", Instant.now());
-		
+		// ainda nao foi implementado a devolucao do emprestimo
+		ReflectionTestUtils.setField(emprestimoCriado, "instanteDevolucao",
+				Instant.now());
+
 		Assertions.assertTrue(instancia.disponivelParaEmprestimo());
 	}
-	
+
 	@DisplayName("nao deveria estar disponivel se tem emprestimo que ainda nao foi devolvido")
 	@Test
 	void teste3() throws Exception {
@@ -47,8 +48,47 @@ public class InstanciaTest {
 		Instancia instancia = new Instancia(Tipo.LIVRE, livro);
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
 		instancia.criaEmprestimo(usuario, 40);
-		
-		
+
 		Assertions.assertFalse(instancia.disponivelParaEmprestimo());
 	}
+
+	@DisplayName("Caso todos emprestimos tenham sido devolvidos "
+			+ " ou nunca tenha sido emprestada, "
+			+ "a instancia deveria aceitar um usuario compativel")
+	@Test
+	void teste4() throws Exception {
+		Livro livro = new Livro("titulo", BigDecimal.TEN, "8748956375");
+		Instancia instancia = new Instancia(Tipo.LIVRE, livro);
+		Usuario usuario = new Usuario(TipoUsuario.PADRAO);		
+
+		Assertions.assertTrue(instancia.disponivel(usuario));
+	}
+	
+	@DisplayName("Caso todos emprestimos tenham sido devolvidos "
+			+ " ou nunca tenha sido emprestada, "
+			+ "a instancia não deveria aceitar um usuario incompativel")
+	@Test
+	void teste5() throws Exception {
+		Livro livro = new Livro("titulo", BigDecimal.TEN, "8748956375");
+		Instancia instancia = new Instancia(Tipo.RESTRITO, livro);
+		Usuario usuario = new Usuario(TipoUsuario.PADRAO);		
+		
+		Assertions.assertFalse(instancia.disponivel(usuario));
+	}
+	
+	@DisplayName("Caso tenha emprestimo em aberto"
+			+ "a instancia não deveria aceitar um usuario compativel")
+	@Test
+	void teste6() throws Exception {
+		Livro livro = new Livro("titulo", BigDecimal.TEN, "8748956375");
+		Instancia instancia = new Instancia(Tipo.LIVRE, livro);
+		
+
+		
+		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
+		instancia.criaEmprestimo(usuario, 40);
+		
+		Assertions.assertFalse(instancia.disponivel(usuario));
+	}
+
 }

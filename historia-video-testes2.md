@@ -9,4 +9,6 @@
   
 * Boundary testing para olhar se o usuario pode ainda solicitar emprestimo
 
-* Teste parametrizado para não ficar escrevendo código a toa  
+* Teste parametrizado para não ficar escrevendo código a toa
+
+* MC/DC nas condicionais  
