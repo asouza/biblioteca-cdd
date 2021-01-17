@@ -14,7 +14,7 @@ import com.deveficiente.blblioteca.novolivro.Livro;
 import com.deveficiente.blblioteca.novousuario.PedidoEmprestimoComTempo;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
-//1
+//2
 public class NovoEmprestimoRequest implements PedidoEmprestimoComTempo {
 
 	@NotNull
@@ -59,9 +59,9 @@ public class NovoEmprestimoRequest implements PedidoEmprestimoComTempo {
 		Assert.state(Objects.nonNull(usuario),"O usuario precisa existir para criar um emprestimo");
 		Assert.state(usuario.tempoEmprestimoValido(this),"Olha, você está tentando criar um emprestimo com um tempo não liberado para este usuario");
 				
-		//2
 		int limiteMaximoDeTempoDeEmprestimo = 60;
-		int tempoDefinido = tempo == null ? limiteMaximoDeTempoDeEmprestimo : tempo;
+		int tempoDefinido = Optional.ofNullable(tempo).orElse(limiteMaximoDeTempoDeEmprestimo);
+		
 		return usuario.criaEmprestimo(livro,tempoDefinido);
 		
 	}
