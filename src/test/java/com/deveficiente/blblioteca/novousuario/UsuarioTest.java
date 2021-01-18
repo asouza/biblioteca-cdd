@@ -14,7 +14,7 @@ import com.deveficiente.blblioteca.novolivro.Livro;
 
 public class UsuarioTest {
 
-	@DisplayName("usuario ainda pode solicitar emprestimo quando não chegou no limite")
+	@DisplayName("situacoes onde usuario pode ou não solicitar empréstimo")
 	@ParameterizedTest
 	@CsvSource({
 		"4,true",

@@ -27,8 +27,8 @@ public class VerificacaoBasicaEmprestimoValidatorTest {
 		VerificacaoBasicaEmprestimoValidator validador = new VerificacaoBasicaEmprestimoValidator(
 				manager);
 
-		Errors errors = new BeanPropertyBindingResult(new Object(), "target");
 		Object target = new Object();
+		Errors errors = new BeanPropertyBindingResult(target, "target");
 		errors.reject("codigoErro");
 
 		validador.validate(target, errors);

@@ -1,5 +1,6 @@
 package com.deveficiente.blblioteca.novainstancia;
 
+import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -51,7 +52,7 @@ public class Instancia {
 	}
 	
 	public Long getId() {
-		Assert.state(id!=null,"O id está nulo. Chamou o persist?");
+		Assert.state(Objects.nonNull(id),"O id está nulo. Chamou o persist?");
 		return id;
 	}
 	
