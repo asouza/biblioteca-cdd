@@ -33,7 +33,8 @@ public class Livro {
 	private @NotBlank String titulo;
 	private @NotNull @Positive BigDecimal preco;
 	@Column(unique = true)
-	private @NotBlank @ISBN(type = Type.ISBN_10) String isbn;
+	//@ISBN(type = Type.ISBN_10)
+	private @NotBlank  String isbn;
 	@OneToMany(mappedBy = "livro")
 	//1
 	private List<Instancia> instancias = new ArrayList<>();

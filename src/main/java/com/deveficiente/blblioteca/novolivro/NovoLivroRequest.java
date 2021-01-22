@@ -20,7 +20,7 @@ public class NovoLivroRequest {
 	@Positive
 	private BigDecimal preco;
 	@NotBlank
-	@ISBN(type = Type.ISBN_10)
+	//@ISBN(type = Type.ISBN_10)
 	@UniqueValue(domainClass = Livro.class,fieldName = "isbn")
 	private String isbn;
 
