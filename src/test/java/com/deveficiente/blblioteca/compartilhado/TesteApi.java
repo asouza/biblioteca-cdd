@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.deveficiente.blblioteca.novainstancia.Tipo;
+import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
@@ -28,18 +30,44 @@ public class TesteApi {
 	 */
 	public ResultActions criaLivro(String titulo, BigDecimal valor, String isbn) throws Exception {
 		
-		String novoLivro = new ObjectMapper()
+		String payload = new ObjectMapper()
 				.writeValueAsString(
 						Map.of("titulo",titulo,
 							   "preco",valor,
 							   "isbn",isbn));
 		
-		System.out.println(novoLivro);
+		System.out.println(payload);
 		
 		return mvc.perform(
 				MockMvcRequestBuilders.post("/livros")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(novoLivro));		
+				.content(payload));		
+	}
+
+	public ResultActions criaUsuario(TipoUsuario tipoUsuario) throws Exception {
+		String payload = new ObjectMapper()
+				.writeValueAsString(
+						Map.of("tipo",tipoUsuario));
+		
+		System.out.println(payload);
+		
+		return mvc.perform(
+				MockMvcRequestBuilders.post("/api/usuarios")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(payload));
+	}
+
+	public ResultActions criaInstancia(String isbn, Tipo tipo) throws Exception {
+		String payload = new ObjectMapper()
+				.writeValueAsString(
+						Map.of("tipo",tipo));
+		
+		System.out.println(payload);
+		
+		return mvc.perform(
+				MockMvcRequestBuilders.post("/livro/{isbn}/instancias",isbn)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(payload));		
 	}
 	
 	

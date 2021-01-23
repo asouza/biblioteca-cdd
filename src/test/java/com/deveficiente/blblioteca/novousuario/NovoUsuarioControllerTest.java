@@ -1,10 +1,12 @@
-package com.deveficiente.blblioteca.novolivro;
+package com.deveficiente.blblioteca.novousuario;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,24 +25,21 @@ import net.jqwik.api.constraints.StringLength;
 import net.jqwik.api.constraints.Unique;
 import net.jqwik.spring.JqwikSpringSupport;
 
-@JqwikSpringSupport
 @SpringBootTest
 @AutoConfigureMockMvc
-public class NovoLivroControllerTest {
+public class NovoUsuarioControllerTest {
 
 	@Autowired
 	private TesteApi testeApi;
 
-	@DisplayName("deveria criar livros para todo tipo de entrada válida")
-	@Property(tries = 100)
-	public void teste1(
-			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String titulo,
-			@ForAll @BigRange(min = "1", max = "100") BigDecimal valor,
-			@ForAll @Size(10) List<@NumericChars @Unique Character> isbn)
-			throws Exception {
+	@DisplayName("deveria criar novos usuário")
+	@ParameterizedTest
+	@CsvSource({
+		"PADRAO","PESQUISADOR"
+	})
+	public void teste1(String tipoUsuario) throws Exception {
 
-		ResultActions actions = testeApi.criaLivro(titulo, valor, isbn.stream()
-				.map(c -> c.toString()).collect(Collectors.joining()));
+		ResultActions actions = testeApi.criaUsuario(TipoUsuario.valueOf(tipoUsuario));
 		actions.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
 
 	}
