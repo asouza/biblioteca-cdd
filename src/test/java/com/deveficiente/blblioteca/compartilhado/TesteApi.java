@@ -14,6 +14,8 @@ import com.deveficiente.blblioteca.novainstancia.Tipo;
 import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import net.jqwik.api.constraints.IntRange;
+
 @Component
 public class TesteApi {
 
@@ -54,7 +56,10 @@ public class TesteApi {
 		return mvc.perform(
 				MockMvcRequestBuilders.post("/api/usuarios")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(payload));
+				.content(payload))
+				.andDo(handler -> {
+					System.out.println(handler.getResponse().getContentAsString());
+				});
 	}
 
 	public ResultActions criaInstancia(String isbn, Tipo tipo) throws Exception {
@@ -68,6 +73,22 @@ public class TesteApi {
 				MockMvcRequestBuilders.post("/livro/{isbn}/instancias",isbn)
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(payload));		
+	}
+
+	public ResultActions criaEmprestimo(long idUsuario, long idLivro,
+			int tempo) throws Exception {
+		String payload = new ObjectMapper()
+				.writeValueAsString(
+						Map.of("idUsuario",idUsuario,
+							   "idLivro",idLivro,
+							   "tempo",tempo));
+		
+		System.out.println(payload);
+		
+		return mvc.perform(
+				MockMvcRequestBuilders.post("/api/emprestimos")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(payload));
 	}
 	
 	
