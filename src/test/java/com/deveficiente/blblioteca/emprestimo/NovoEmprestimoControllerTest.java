@@ -46,15 +46,15 @@ public class NovoEmprestimoControllerTest {
 		String isbn = listaDigitosIsbn.stream()
 		.map(c -> c.toString()).collect(Collectors.joining());
 		
-		String idLivro = testeApi.criaLivro(titulo, valor,isbn).andReturn().getResponse().getContentAsString();
-		String idUsuario = testeApi.criaUsuario(TipoUsuario.PADRAO).andReturn().getResponse().getContentAsString();
+		String idLivro = testeApi.criaLivro(titulo, valor,isbn).andReturn().getResponse().getContentAsString().trim();
+		String idUsuario = testeApi.criaUsuario(TipoUsuario.PADRAO).andReturn().getResponse().getContentAsString().trim();
 		
 		for(int i = 0;i < numeroInstancias ;i++) {
 			testeApi.criaInstancia(isbn, Tipo.LIVRE);
 		}
 		
 		for(int i = 0;i < numeroInstancias ;i++) {
-			testeApi.criaEmprestimo(Long.valueOf(idLivro),Long.valueOf(idUsuario),tempo)
+			testeApi.criaEmprestimo(Long.valueOf(idUsuario),Long.valueOf(idLivro),tempo)
 			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());			
 		}
 
