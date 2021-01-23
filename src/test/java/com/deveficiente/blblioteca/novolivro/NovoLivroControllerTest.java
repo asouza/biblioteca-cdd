@@ -31,7 +31,6 @@ public class NovoLivroControllerTest {
 	@Autowired
 	private TesteApi testeApi;
 
-	@DisplayName("deveria criar livros para todo tipo de entrada válida")
 	@Property(tries = 100)
 	public void teste1(
 			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String titulo,
