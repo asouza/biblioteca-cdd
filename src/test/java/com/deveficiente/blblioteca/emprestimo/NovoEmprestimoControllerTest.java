@@ -35,7 +35,7 @@ public class NovoEmprestimoControllerTest {
 
 	//@DisplayName("exercita empréstimos válidos para usuários padroes")
 	@Property(tries = 10)
-	public void teste1(
+	public void fluxoEmprestimoUsuarioPadrao(
 			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String titulo,
 			@ForAll @BigRange(min = "1", max = "100") BigDecimal valor,
 			@ForAll @Size(10) List<@NumericChars @Unique Character> listaDigitosIsbn,
@@ -59,4 +59,31 @@ public class NovoEmprestimoControllerTest {
 		}
 
 	}
+	
+	@Property(tries = 10)
+	public void fluxoEmprestimoUsuarioPesquisador(
+			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String titulo,
+			@ForAll @BigRange(min = "1", max = "100") BigDecimal valor,
+			@ForAll @Size(10) List<@NumericChars @Unique Character> listaDigitosIsbn,
+			@ForAll @IntRange(min=1,max=10) int numeroInstancias,
+			@ForAll @IntRange(min = 1,max = 60) int tempo,
+			@ForAll Tipo tipoInstancia)
+			throws Exception {
+
+		String isbn = listaDigitosIsbn.stream()
+		.map(c -> c.toString()).collect(Collectors.joining());
+		
+		String idLivro = testeApi.criaLivro(titulo, valor,isbn).andReturn().getResponse().getContentAsString().trim();
+		String idUsuario = testeApi.criaUsuario(TipoUsuario.PESQUISADOR).andReturn().getResponse().getContentAsString().trim();
+		
+		for(int i = 0;i < numeroInstancias ;i++) {
+			testeApi.criaInstancia(isbn, tipoInstancia);
+		}
+		
+		for(int i = 0;i < numeroInstancias ;i++) {
+			testeApi.criaEmprestimo(Long.valueOf(idUsuario),Long.valueOf(idLivro),tempo)
+			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());			
+		}
+
+	}	
 }

@@ -61,7 +61,7 @@ public class Usuario {
 		// 1
 		long quantidadeEmprestimosNaoDevolvidos = this.emprestimos.stream()
 				.filter(emprestimo -> !emprestimo.foiDevolvido()).count();
-		return quantidadeEmprestimosNaoDevolvidos < 5;
+		return this.tipo.aceitaNovoEmprestimo(quantidadeEmprestimosNaoDevolvidos);
 	}
 
 	// 3
