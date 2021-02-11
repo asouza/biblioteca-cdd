@@ -21,7 +21,7 @@ import com.deveficiente.blblioteca.novainstancia.Instancia;
 import com.deveficiente.blblioteca.novolivro.Livro;
 
 @Entity
-//7
+//8 > 7
 public class Usuario {
 
 	@Id
@@ -93,6 +93,16 @@ public class Usuario {
 		this.emprestimos.add(novoEmprestimo);
 		
 		return novoEmprestimo;
+	}
+
+	public boolean alcancouLimiteEmprestimosExpirados() {
+		long expiracoes = this.emprestimos
+				.stream()
+				//1
+				.filter(Emprestimo :: expirado)
+				.count();
+		
+		return expiracoes < 2;
 	}
 
 }

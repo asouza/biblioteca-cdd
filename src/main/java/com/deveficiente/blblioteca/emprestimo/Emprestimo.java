@@ -1,6 +1,8 @@
 package com.deveficiente.blblioteca.emprestimo;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -35,7 +37,6 @@ public class Emprestimo implements Comparable<Emprestimo> {
 	
 	@Deprecated
 	public Emprestimo() {
-
 	}
 
 	public Emprestimo(@NotNull @Valid Usuario usuario,
@@ -44,6 +45,12 @@ public class Emprestimo implements Comparable<Emprestimo> {
 				this.usuario = usuario;
 				this.instanciaSelecionada = instanciaSelecionada;
 				this.tempo = tempo;
+	}
+	
+	public boolean expirado() {
+		return this.instanteEmprestimo
+				.plus(tempo, ChronoUnit.DAYS)
+				.compareTo(Instant.now()) < 0;
 	}
 
 	public Long getId() {

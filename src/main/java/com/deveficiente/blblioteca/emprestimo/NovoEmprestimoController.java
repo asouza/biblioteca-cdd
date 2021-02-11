@@ -18,17 +18,21 @@ public class NovoEmprestimoController {
 	@Autowired
 	private EntityManager manager;
 	@Autowired
+	//1
 	private VerificacaoBasicaEmprestimoValidator verificacaoBasicaEmprestimoValidator;
+	private EmprestimosExpiradosValidator emprestimosExpiradosValidator; 
 	
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(verificacaoBasicaEmprestimoValidator);
+		binder.addValidators(verificacaoBasicaEmprestimoValidator,emprestimosExpiradosValidator);
 	}
 
 	@PostMapping(value = "/api/emprestimos")
 	@Transactional
+	//1
 	public Long executa(@RequestBody @Valid NovoEmprestimoRequest request) {
-				
+			
+		//1
 		Emprestimo novo = request.toModel(manager);
 		manager.persist(novo);
 		return novo.getId();
