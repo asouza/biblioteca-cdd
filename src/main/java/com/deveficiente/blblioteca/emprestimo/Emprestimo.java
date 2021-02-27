@@ -1,5 +1,6 @@
 package com.deveficiente.blblioteca.emprestimo;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
@@ -50,7 +51,14 @@ public class Emprestimo implements Comparable<Emprestimo> {
 	public boolean expirado() {
 		return this.instanteEmprestimo
 				.plus(tempo, ChronoUnit.DAYS)
-				.compareTo(Instant.now()) < 0;
+				.compareTo(Instant.now()) < 1;
+	}
+	
+	public boolean expirado2(Clock relogio) {
+		Instant instanteAtual = Instant.now(relogio);
+		return this.instanteEmprestimo
+				.plus(tempo, ChronoUnit.DAYS)
+				.compareTo(instanteAtual) < 1;
 	}
 
 	public Long getId() {
