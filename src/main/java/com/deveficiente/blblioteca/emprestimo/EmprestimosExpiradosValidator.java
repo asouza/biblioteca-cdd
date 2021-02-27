@@ -1,6 +1,5 @@
 package com.deveficiente.blblioteca.emprestimo;
 
-import java.util.Collection;
 import java.util.Objects;
 
 import javax.persistence.EntityManager;

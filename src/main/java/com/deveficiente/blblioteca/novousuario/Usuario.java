@@ -96,13 +96,10 @@ public class Usuario {
 	}
 
 	public boolean alcancouLimiteEmprestimosExpirados() {
-		long expiracoes = this.emprestimos
+		return this.emprestimos
 				.stream()
 				//1
-				.filter(Emprestimo :: expirado)
-				.count();
-		
-		return expiracoes < 2;
+				.anyMatch(Emprestimo :: expirado);
 	}
 
 }
