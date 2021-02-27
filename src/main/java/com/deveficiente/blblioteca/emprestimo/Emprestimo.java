@@ -3,7 +3,6 @@ package com.deveficiente.blblioteca.emprestimo;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -48,19 +47,12 @@ public class Emprestimo implements Comparable<Emprestimo> {
 				this.tempo = tempo;
 	}
 	
-	public boolean expirado() {
+	public boolean expirado(Clock relogio) {
 		return this.instanteEmprestimo
 				.plus(tempo, ChronoUnit.DAYS)
-				.compareTo(Instant.now()) < 1;
+				.compareTo(Instant.now(relogio)) < 1;
 	}
 	
-	public boolean expirado2(Clock relogio) {
-		Instant instanteAtual = Instant.now(relogio);
-		return this.instanteEmprestimo
-				.plus(tempo, ChronoUnit.DAYS)
-				.compareTo(instanteAtual) < 1;
-	}
-
 	public Long getId() {
 		Assert.state(Objects.nonNull(id), "Será que você esqueceu de persistir o emprestimo");
 		return id;

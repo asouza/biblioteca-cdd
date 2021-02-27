@@ -33,7 +33,7 @@ public class EmprestimoTest {
 		int tempo = 10;
 		Emprestimo emprestimo = new Emprestimo(usuario, instanciaSelecionada,
 				tempo);
-		Assertions.assertFalse(emprestimo.expirado());
+		Assertions.assertFalse(emprestimo.expirado(Clock.systemUTC()));
 
 	}
 	
@@ -49,7 +49,7 @@ public class EmprestimoTest {
 		Emprestimo emprestimo = new Emprestimo(usuario, instanciaSelecionada,
 				tempo);
 		Clock relogioFixo = Clock.fixed(Instant.now().plus(tempo+1, ChronoUnit.DAYS), ZoneOffset.systemDefault());
-		Assertions.assertTrue(emprestimo.expirado2(relogioFixo));
+		Assertions.assertTrue(emprestimo.expirado(relogioFixo));
 		
 	}
 }

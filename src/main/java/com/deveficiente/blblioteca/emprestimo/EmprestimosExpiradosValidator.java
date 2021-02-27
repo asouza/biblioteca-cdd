@@ -1,5 +1,6 @@
 package com.deveficiente.blblioteca.emprestimo;
 
+import java.time.Clock;
 import java.util.Objects;
 
 import javax.persistence.EntityManager;
@@ -15,10 +16,12 @@ import com.deveficiente.blblioteca.novousuario.Usuario;
 public class EmprestimosExpiradosValidator implements Validator {
 
 	private EntityManager manager;
+	private Clock relogio;
 
-	public EmprestimosExpiradosValidator(EntityManager manager) {
+	public EmprestimosExpiradosValidator(EntityManager manager,Clock relogio) {
 		super();
 		this.manager = manager;
+		this.relogio = relogio;
 	}
 
 	@Override
@@ -37,7 +40,7 @@ public class EmprestimosExpiradosValidator implements Validator {
 		
 		Assert.state(Objects.nonNull(usuario),"Usuario passado precisa existir no sistema");
 		
-		if(usuario.alcancouLimiteEmprestimosExpirados()) {
+		if(usuario.alcancouLimiteEmprestimosExpirados(relogio)) {
 			errors.reject(null, "Você já tem mais emprestimos expirados que o permitido");
 		}
 	}

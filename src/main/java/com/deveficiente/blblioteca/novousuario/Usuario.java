@@ -1,5 +1,6 @@
 package com.deveficiente.blblioteca.novousuario;
 
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -95,11 +96,11 @@ public class Usuario {
 		return novoEmprestimo;
 	}
 
-	public boolean alcancouLimiteEmprestimosExpirados() {
+	public boolean alcancouLimiteEmprestimosExpirados(Clock relogio) {
 		return this.emprestimos
 				.stream()
 				//1
-				.anyMatch(Emprestimo :: expirado);
+				.anyMatch(emprestimo -> emprestimo.expirado(relogio));
 	}
 
 }
