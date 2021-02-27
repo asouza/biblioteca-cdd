@@ -13,9 +13,5 @@ public class BibliotecaCddApplication {
 		SpringApplication.run(BibliotecaCddApplication.class, args);
 	}
 	
-	@Bean
-	public Clock clock() {
-		return Clock.systemUTC();
-	}
 
 }

@@ -20,6 +20,7 @@ public class NovoEmprestimoController {
 	@Autowired
 	//1
 	private VerificacaoBasicaEmprestimoValidator verificacaoBasicaEmprestimoValidator;
+	@Autowired
 	private EmprestimosExpiradosValidator emprestimosExpiradosValidator; 
 	
 	@InitBinder

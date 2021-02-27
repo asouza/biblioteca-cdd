@@ -21,7 +21,7 @@ public class EmprestimosExpiradosValidator implements Validator {
 	public EmprestimosExpiradosValidator(EntityManager manager,Clock relogio) {
 		super();
 		this.manager = manager;
-		this.relogio = relogio;
+		this.relogio = relogio;		
 	}
 
 	@Override
