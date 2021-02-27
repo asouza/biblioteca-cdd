@@ -1,4 +1,4 @@
-package com.deveficiente.blblioteca.emprestimo;
+package com.deveficiente.blblioteca.expiracaoemprestimo;
 
 import java.time.Clock;
 import java.util.Objects;
@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import com.deveficiente.blblioteca.emprestimo.NovoEmprestimoRequest;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Component

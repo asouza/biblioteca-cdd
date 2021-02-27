@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.deveficiente.blblioteca.expiracaoemprestimo.EmprestimosExpiradosValidator;
+
 @RestController
 public class NovoEmprestimoController {
 
