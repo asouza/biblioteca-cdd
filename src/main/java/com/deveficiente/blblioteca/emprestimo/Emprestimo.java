@@ -77,6 +77,7 @@ public class Emprestimo implements Comparable<Emprestimo> {
 	 */
 	public void devolve(Usuario usuarioQueEstaDevolvendo) {
 		Assert.state(this.pertence(usuarioQueEstaDevolvendo), "A pessoa devolvendo deve ser a mesma que pegou o exemplar");
+		Assert.state(Objects.nonNull(this.instanteDevolucao),"Um exemplar que já foi devolvido não pode ser devolvido de novo");
 		
 		this.instanteDevolucao = Instant.now();
 	}
