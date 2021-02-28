@@ -1,6 +1,7 @@
 package com.deveficiente.blblioteca.devolucao;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class DevolucaoController {
 	private EntityManager manager;
 
 	@PostMapping(value = "/api/devolucoes")
+	@Transactional
 	public ResponseEntity<?> devolve(@Valid @RequestBody DevolucaoRequest request) {
 		
 		Emprestimo emprestimo = manager.find(Emprestimo.class, request.idEmprestimo);
@@ -27,6 +29,9 @@ public class DevolucaoController {
 		if(!emprestimo.pertence(usuario)) {
 			return ResponseEntity.notFound().build();
 		}
+		
+		emprestimo.devolve(usuario);
+		
 		return ResponseEntity.ok().build();
 	}
 

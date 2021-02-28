@@ -71,4 +71,14 @@ public class Emprestimo implements Comparable<Emprestimo> {
 		return this.usuario.mesmoId(outroUsuario);
 	}
 
+	/**
+	 * 
+	 * @param usuarioQueEstaDevolvendo usuario fazendo devolucao
+	 */
+	public void devolve(Usuario usuarioQueEstaDevolvendo) {
+		Assert.state(this.pertence(usuarioQueEstaDevolvendo), "A pessoa devolvendo deve ser a mesma que pegou o exemplar");
+		
+		this.instanteDevolucao = Instant.now();
+	}
+
 }
