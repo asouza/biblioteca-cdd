@@ -3,6 +3,7 @@ package com.deveficiente.blblioteca.novolivro;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.Column;
@@ -52,7 +53,7 @@ public class Livro {
 	}
 
 	public Long getId() {
-		Assert.state(id != null,
+		Assert.state(Objects.nonNull(this.id),
 				"Não rola chamar o getId do livro com o id nulo. Será que você já persistiu?");
 		return id;
 	}
