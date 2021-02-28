@@ -67,4 +67,8 @@ public class Emprestimo implements Comparable<Emprestimo> {
 		return this.instanteEmprestimo.compareTo(outro.instanteEmprestimo);
 	}
 
+	public boolean pertence(Usuario outroUsuario) {
+		return this.usuario.mesmoId(outroUsuario);
+	}
+
 }

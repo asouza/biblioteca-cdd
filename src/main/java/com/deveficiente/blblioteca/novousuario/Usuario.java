@@ -103,4 +103,10 @@ public class Usuario {
 				.anyMatch(emprestimo -> emprestimo.expirado(relogio));
 	}
 
+	public boolean mesmoId(Usuario outroUsuario) {
+		//realmente este usuario não tem id natural, então criei este método
+		//acho perigoso colocar o equals em cima de um id nao natural(vai ser nulo em determinado momento do tempo)
+		return this.id.equals(outroUsuario.id);
+	}
+
 }
