@@ -15,23 +15,28 @@ import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @RestController
 public class DevolucaoController {
-	
-	@Autowired
+
 	private EntityManager manager;
+
+	public DevolucaoController(EntityManager manager) {
+		this.manager = manager;
+	}
 
 	@PostMapping(value = "/api/devolucoes")
 	@Transactional
-	public ResponseEntity<?> devolve(@Valid @RequestBody DevolucaoRequest request) {
-		
-		Emprestimo emprestimo = manager.find(Emprestimo.class, request.idEmprestimo);
+	public ResponseEntity<?> devolve(
+			@Valid @RequestBody DevolucaoRequest request) {
+
+		Emprestimo emprestimo = manager.find(Emprestimo.class,
+				request.idEmprestimo);
 		Usuario usuario = manager.find(Usuario.class, request.idUsuario);
-		
-		if(!emprestimo.pertence(usuario)) {
+
+		if (!emprestimo.pertence(usuario)) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		emprestimo.devolve(usuario);
-		
+
 		return ResponseEntity.ok().build();
 	}
 

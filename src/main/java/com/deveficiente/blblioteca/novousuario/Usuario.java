@@ -104,6 +104,8 @@ public class Usuario {
 	}
 
 	public boolean mesmoId(Usuario outroUsuario) {
+		Assert.state(Objects.nonNull(this.id),"O usuário precisa de id para essa operacao");
+		Assert.notNull(outroUsuario.id, "O outro usuario precisa de id para essa operacao");
 		//realmente este usuario não tem id natural, então criei este método
 		//acho perigoso colocar o equals em cima de um id nao natural(vai ser nulo em determinado momento do tempo)
 		return this.id.equals(outroUsuario.id);
