@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.deveficiente.blblioteca.emprestimo.Emprestimo;
-import com.deveficiente.blblioteca.novainstancia.Tipo;
+import com.deveficiente.blblioteca.novoexemplar.Tipo;
 import com.deveficiente.blblioteca.novolivro.Livro;
 
 public class UsuarioTest {
@@ -32,7 +32,7 @@ public class UsuarioTest {
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "897452386534");
 		//cria instancias para serem emprestadas
 		for(int i=0;i<20;i++) {
-			livro.novaInstancia(Tipo.LIVRE);			
+			livro.novoExemplar(Tipo.LIVRE);			
 		}
 
 		

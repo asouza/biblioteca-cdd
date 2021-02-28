@@ -20,8 +20,8 @@ import org.hibernate.validator.constraints.ISBN;
 import org.hibernate.validator.constraints.ISBN.Type;
 import org.springframework.util.Assert;
 
-import com.deveficiente.blblioteca.novainstancia.Instancia;
-import com.deveficiente.blblioteca.novainstancia.Tipo;
+import com.deveficiente.blblioteca.novoexemplar.Exemplar;
+import com.deveficiente.blblioteca.novoexemplar.Tipo;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Entity
@@ -38,7 +38,7 @@ public class Livro {
 	private @NotBlank  String isbn;
 	@OneToMany(mappedBy = "livro")
 	//1
-	private List<Instancia> instancias = new ArrayList<>();
+	private List<Exemplar> instancias = new ArrayList<>();
 
 	@Deprecated
 	public Livro() {
@@ -73,14 +73,14 @@ public class Livro {
 
 	
 	//1 Tipo
-	public Instancia novaInstancia(Tipo tipo) {
-		Instancia novaInstancia = new Instancia(tipo, this);
+	public Exemplar novoExemplar(Tipo tipo) {
+		Exemplar novaInstancia = new Exemplar(tipo, this);
 		this.instancias.add(novaInstancia);
 		return novaInstancia;
 	}
 
 	//1 lambda
-	public Optional<Instancia> buscaInstanciaDisponivel(Usuario usuario) {
+	public Optional<Exemplar> buscaInstanciaDisponivel(Usuario usuario) {
 		//1
 		return instancias.stream()
 			.filter(instancia -> instancia.disponivel(usuario))

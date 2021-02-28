@@ -1,4 +1,4 @@
-package com.deveficiente.blblioteca.novainstancia;
+package com.deveficiente.blblioteca.novoexemplar;
 
 import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 import com.deveficiente.blblioteca.novousuario.Usuario;

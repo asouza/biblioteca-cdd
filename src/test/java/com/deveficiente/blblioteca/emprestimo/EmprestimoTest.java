@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import com.deveficiente.blblioteca.novainstancia.Instancia;
-import com.deveficiente.blblioteca.novainstancia.Tipo;
+import com.deveficiente.blblioteca.novoexemplar.Exemplar;
+import com.deveficiente.blblioteca.novoexemplar.Tipo;
 import com.deveficiente.blblioteca.novolivro.Livro;
 import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 import com.deveficiente.blblioteca.novousuario.Usuario;
@@ -25,7 +25,7 @@ public class EmprestimoTest {
 	void teste1() throws Exception {
 		Usuario usuario = new Usuario(TipoUsuario.PESQUISADOR);
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "984623786432");
-		Instancia instanciaSelecionada = new Instancia(Tipo.LIVRE, livro);
+		Exemplar instanciaSelecionada = new Exemplar(Tipo.LIVRE, livro);
 		int tempo = 10;
 		Emprestimo emprestimo = new Emprestimo(usuario, instanciaSelecionada,
 				tempo);
@@ -41,7 +41,7 @@ public class EmprestimoTest {
 	void teste2(int tempo) throws Exception {
 		Usuario usuario = new Usuario(TipoUsuario.PESQUISADOR);
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "984623786432");
-		Instancia instanciaSelecionada = new Instancia(Tipo.LIVRE, livro);
+		Exemplar instanciaSelecionada = new Exemplar(Tipo.LIVRE, livro);
 		Emprestimo emprestimo = new Emprestimo(usuario, instanciaSelecionada,
 				tempo);
 		Clock relogioFixo = Clock.fixed(Instant.now().plus(tempo+1, ChronoUnit.DAYS), ZoneOffset.systemDefault());

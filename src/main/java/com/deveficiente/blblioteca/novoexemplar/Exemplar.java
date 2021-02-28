@@ -1,4 +1,4 @@
-package com.deveficiente.blblioteca.novainstancia;
+package com.deveficiente.blblioteca.novoexemplar;
 
 import java.util.Objects;
 import java.util.SortedSet;
@@ -24,7 +24,7 @@ import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Entity
 //3
-public class Instancia {
+public class Exemplar {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,11 +42,11 @@ public class Instancia {
 	private int versao;
 	
 	@Deprecated
-	public Instancia() {
+	public Exemplar() {
 
 	}
 	
-	public Instancia(@NotNull Tipo tipo, @NotNull @Valid Livro livro) {
+	public Exemplar(@NotNull Tipo tipo, @NotNull @Valid Livro livro) {
 		this.tipo = tipo;
 		this.livro = livro;
 	}

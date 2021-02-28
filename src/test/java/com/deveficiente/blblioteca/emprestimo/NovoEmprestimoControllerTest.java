@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.deveficiente.blblioteca.compartilhado.TesteApi;
-import com.deveficiente.blblioteca.novainstancia.Tipo;
+import com.deveficiente.blblioteca.novoexemplar.Tipo;
 import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 
 import net.jqwik.api.ForAll;

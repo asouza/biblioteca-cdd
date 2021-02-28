@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.deveficiente.blblioteca.emprestimo.Emprestimo;
-import com.deveficiente.blblioteca.novainstancia.Tipo;
+import com.deveficiente.blblioteca.novoexemplar.Tipo;
 import com.deveficiente.blblioteca.novolivro.Livro;
 import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 import com.deveficiente.blblioteca.novousuario.Usuario;
@@ -28,7 +28,7 @@ public class DevolucaoControllerTest {
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
 		ReflectionTestUtils.setField(usuario, "id", 1l);
 		Livro livro = new Livro("titulo", new BigDecimal("10"), "9743298743");		
-		livro.novaInstancia(Tipo.LIVRE);
+		livro.novoExemplar(Tipo.LIVRE);
 		Emprestimo emprestimo = usuario.criaEmprestimo(livro, 10);		
 		
 		EntityManager manager = Mockito.mock(EntityManager.class);
@@ -55,7 +55,7 @@ public class DevolucaoControllerTest {
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
 		ReflectionTestUtils.setField(usuario, "id", 1l);
 		Livro livro = new Livro("titulo", new BigDecimal("10"), "9743298743");		
-		livro.novaInstancia(Tipo.LIVRE);
+		livro.novoExemplar(Tipo.LIVRE);
 		Emprestimo emprestimo = usuario.criaEmprestimo(livro, 10);		
 		
 		EntityManager manager = Mockito.mock(EntityManager.class);

@@ -12,17 +12,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.deveficiente.blblioteca.emprestimo.Emprestimo;
+import com.deveficiente.blblioteca.novoexemplar.Exemplar;
+import com.deveficiente.blblioteca.novoexemplar.Tipo;
 import com.deveficiente.blblioteca.novolivro.Livro;
 import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
-public class InstanciaTest {
+public class ExemplarTest {
 
 	@DisplayName("deveria estar disponível para emprestimo se nunca foi emprestada")
 	@Test
 	void teste1() throws Exception {
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "8748956375");
-		Instancia instancia = new Instancia(Tipo.LIVRE, livro);
+		Exemplar instancia = new Exemplar(Tipo.LIVRE, livro);
 
 		Assertions.assertTrue(instancia.disponivelParaEmprestimo());
 	}
@@ -31,7 +33,7 @@ public class InstanciaTest {
 	@Test
 	void teste2() throws Exception {
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "8748956375");
-		Instancia instancia = new Instancia(Tipo.LIVRE, livro);
+		Exemplar instancia = new Exemplar(Tipo.LIVRE, livro);
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
 		Emprestimo emprestimoCriado = instancia.criaEmprestimo(usuario, 40);
 		// ainda nao foi implementado a devolucao do emprestimo
@@ -45,7 +47,7 @@ public class InstanciaTest {
 	@Test
 	void teste3() throws Exception {
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "8748956375");
-		Instancia instancia = new Instancia(Tipo.LIVRE, livro);
+		Exemplar instancia = new Exemplar(Tipo.LIVRE, livro);
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
 		instancia.criaEmprestimo(usuario, 40);
 
@@ -58,7 +60,7 @@ public class InstanciaTest {
 	@Test
 	void teste4() throws Exception {
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "8748956375");
-		Instancia instancia = new Instancia(Tipo.LIVRE, livro);
+		Exemplar instancia = new Exemplar(Tipo.LIVRE, livro);
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);		
 
 		Assertions.assertTrue(instancia.disponivel(usuario));
@@ -70,7 +72,7 @@ public class InstanciaTest {
 	@Test
 	void teste5() throws Exception {
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "8748956375");
-		Instancia instancia = new Instancia(Tipo.RESTRITO, livro);
+		Exemplar instancia = new Exemplar(Tipo.RESTRITO, livro);
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);		
 		
 		Assertions.assertFalse(instancia.disponivel(usuario));
@@ -81,7 +83,7 @@ public class InstanciaTest {
 	@Test
 	void teste6() throws Exception {
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "8748956375");
-		Instancia instancia = new Instancia(Tipo.LIVRE, livro);
+		Exemplar instancia = new Exemplar(Tipo.LIVRE, livro);
 		
 
 		

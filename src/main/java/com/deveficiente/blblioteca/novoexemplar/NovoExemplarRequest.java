@@ -1,10 +1,10 @@
-package com.deveficiente.blblioteca.novainstancia;
+package com.deveficiente.blblioteca.novoexemplar;
 
 import javax.validation.constraints.NotNull;
 
 import com.deveficiente.blblioteca.novolivro.Livro;
 
-public class NovaInstanciaRequest {
+public class NovoExemplarRequest {
 
 	@NotNull
 	private Tipo tipo;

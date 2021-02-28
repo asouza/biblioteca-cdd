@@ -13,7 +13,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
-import com.deveficiente.blblioteca.novainstancia.Tipo;
+import com.deveficiente.blblioteca.novoexemplar.Tipo;
 import com.deveficiente.blblioteca.novolivro.Livro;
 import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 import com.deveficiente.blblioteca.novousuario.Usuario;
@@ -45,7 +45,7 @@ public class VerificacaoBasicaEmprestimoValidatorTest {
 				manager);
 
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "897452386534");
-		livro.novaInstancia(Tipo.LIVRE);
+		livro.novoExemplar(Tipo.LIVRE);
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
 
 		Mockito.when(manager.find(Usuario.class, 1l)).thenReturn(usuario);
@@ -72,7 +72,7 @@ public class VerificacaoBasicaEmprestimoValidatorTest {
 		Livro livro = new Livro("titulo", BigDecimal.TEN, "897452386534");
 		//cria instancias para serem emprestadas
 		for(int i=0;i<6;i++) {
-			livro.novaInstancia(Tipo.LIVRE);			
+			livro.novoExemplar(Tipo.LIVRE);			
 		}
 
 		

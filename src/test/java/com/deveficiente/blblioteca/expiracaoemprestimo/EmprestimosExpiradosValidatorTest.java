@@ -18,8 +18,8 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
 import com.deveficiente.blblioteca.emprestimo.NovoEmprestimoRequest;
-import com.deveficiente.blblioteca.novainstancia.Instancia;
-import com.deveficiente.blblioteca.novainstancia.Tipo;
+import com.deveficiente.blblioteca.novoexemplar.Exemplar;
+import com.deveficiente.blblioteca.novoexemplar.Tipo;
 import com.deveficiente.blblioteca.novolivro.Livro;
 import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 import com.deveficiente.blblioteca.novousuario.Usuario;
@@ -52,7 +52,7 @@ public class EmprestimosExpiradosValidatorTest {
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
 		ReflectionTestUtils.setField(usuario, "id", 1l);
 		Livro livro = new Livro("titulo", new BigDecimal("10"), "9743298743");		
-		livro.novaInstancia(Tipo.LIVRE);
+		livro.novoExemplar(Tipo.LIVRE);
 		usuario.criaEmprestimo(livro, 10);
 
 		EntityManager manager = Mockito.mock(EntityManager.class);

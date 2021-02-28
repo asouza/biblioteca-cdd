@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.deveficiente.blblioteca.compartilhado.TesteApi;
+import com.deveficiente.blblioteca.novoexemplar.Tipo;
 
 @SpringBootTest
 @AutoConfigureMockMvc

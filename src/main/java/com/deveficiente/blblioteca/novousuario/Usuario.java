@@ -18,7 +18,7 @@ import javax.validation.constraints.Positive;
 import org.springframework.util.Assert;
 
 import com.deveficiente.blblioteca.emprestimo.Emprestimo;
-import com.deveficiente.blblioteca.novainstancia.Instancia;
+import com.deveficiente.blblioteca.novoexemplar.Exemplar;
 import com.deveficiente.blblioteca.novolivro.Livro;
 
 @Entity
@@ -77,19 +77,19 @@ public class Usuario {
 				"Este usuário já está no limite de empréstimos");
 
 		// 1
-		Optional<Instancia> possivelInstanciaSelecionada = livro
+		Optional<Exemplar> possivelExemplaerSelecionado = livro
 				.buscaInstanciaDisponivel(this);
 
-		Assert.state(possivelInstanciaSelecionada.isPresent(),
+		Assert.state(possivelExemplaerSelecionado.isPresent(),
 				"Nesta altura do código a busca pela instância do livro deveria retornar alguma opção");
 
-		Instancia instanciaSelecionada = possivelInstanciaSelecionada.get();
+		Exemplar exemplarSelecionado = possivelExemplaerSelecionado.get();
 
-		Assert.state(instanciaSelecionada.disponivelParaEmprestimo(),
+		Assert.state(exemplarSelecionado.disponivelParaEmprestimo(),
 				"A instancia retornada não está disponível, será que tem um bug no método #buscaInstanciaDisponivel ?");
 
 		// 1
-		Emprestimo novoEmprestimo = instanciaSelecionada.criaEmprestimo(this,
+		Emprestimo novoEmprestimo = exemplarSelecionado.criaEmprestimo(this,
 				tempo);
 		this.emprestimos.add(novoEmprestimo);
 		

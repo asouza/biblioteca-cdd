@@ -1,4 +1,4 @@
-package com.deveficiente.blblioteca.novainstancia;
+package com.deveficiente.blblioteca.novoexemplar;
 
 import java.util.Optional;
 
@@ -17,7 +17,7 @@ import com.deveficiente.blblioteca.novolivro.Livro;
 
 @RestController
 //5
-public class NovaInstanciaController {
+public class NovoExemplarController {
 	
 	@Autowired
 	//1
@@ -28,17 +28,17 @@ public class NovaInstanciaController {
 	@PostMapping(value = "/livro/{isbn}/instancias")
 	@Transactional
 	//1 NovaInstanciaRequest
-	public ResponseEntity<?> executa(@PathVariable("isbn") String isbn,@RequestBody @Valid NovaInstanciaRequest request) {
+	public ResponseEntity<?> executa(@PathVariable("isbn") String isbn,@RequestBody @Valid NovoExemplarRequest request) {
 		//1
 		Optional<Livro> possivelLivro = repository.findByIsbn(isbn);
 		//1
 		return possivelLivro.map(livro -> {
 			//1
-			Instancia novaInstancia = livro.novaInstancia(request.getTipo());
+			Exemplar novoExemplar = livro.novoExemplar(request.getTipo());
 			
-			manager.persist(novaInstancia);
+			manager.persist(novoExemplar);
 			
-			return ResponseEntity.ok(novaInstancia.getId());			
+			return ResponseEntity.ok(novoExemplar.getId());			
 		}).orElse(ResponseEntity.notFound().build());
 		
 	}

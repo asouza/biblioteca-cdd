@@ -16,7 +16,7 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.util.Assert;
 
-import com.deveficiente.blblioteca.novainstancia.Instancia;
+import com.deveficiente.blblioteca.novoexemplar.Exemplar;
 import com.deveficiente.blblioteca.novousuario.Usuario;
 
 @Entity
@@ -30,7 +30,7 @@ public class Emprestimo implements Comparable<Emprestimo> {
 	private @NotNull @Valid Usuario usuario;
 	@ManyToOne
 	//1
-	private @NotNull @Valid Instancia instanciaSelecionada;
+	private @NotNull @Valid Exemplar exemplarSelecionado;
 	private @Positive int tempo;	
 	private Instant instanteDevolucao;
 	private Instant instanteEmprestimo = Instant.now();;
@@ -40,10 +40,10 @@ public class Emprestimo implements Comparable<Emprestimo> {
 	}
 
 	public Emprestimo(@NotNull @Valid Usuario usuario,
-			@NotNull @Valid Instancia instanciaSelecionada, @Positive int tempo) {
-				Assert.isTrue(instanciaSelecionada.aceita(usuario),"Olha, você está construindo um emprestimo com instancia que nao aceita o usuario. Será que você verificou corretamente antes?");
+			@NotNull @Valid Exemplar exemplarSelecionado, @Positive int tempo) {
+				Assert.isTrue(exemplarSelecionado.aceita(usuario),"Olha, você está construindo um emprestimo com instancia que nao aceita o usuario. Será que você verificou corretamente antes?");
 				this.usuario = usuario;
-				this.instanciaSelecionada = instanciaSelecionada;
+				this.exemplarSelecionado = exemplarSelecionado;
 				this.tempo = tempo;
 	}
 	
