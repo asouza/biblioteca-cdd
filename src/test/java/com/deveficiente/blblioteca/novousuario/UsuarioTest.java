@@ -46,7 +46,7 @@ public class UsuarioTest {
 		}
 		
 		for(int i=0;i<numeroDevolucoes;i++) {
-			emprestimos.get(0).devolve(usuario);			
+			emprestimos.get(i).devolve(usuario);			
 		}	
 		
 		
