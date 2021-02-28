@@ -39,7 +39,7 @@ public class NovoEmprestimoControllerTest {
 			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String titulo,
 			@ForAll @BigRange(min = "1", max = "100") BigDecimal valor,
 			@ForAll @Size(10) List<@NumericChars @Unique Character> listaDigitosIsbn,
-			@ForAll @IntRange(min=1,max=5) int numeroInstancias,
+			@ForAll @IntRange(min=1,max=5) int numeroExemplares,
 			@ForAll @IntRange(min = 1,max = 60) int tempo)
 			throws Exception {
 
@@ -49,11 +49,11 @@ public class NovoEmprestimoControllerTest {
 		String idLivro = testeApi.criaLivro(titulo, valor,isbn).andReturn().getResponse().getContentAsString().trim();
 		String idUsuario = testeApi.criaUsuario(TipoUsuario.PADRAO).andReturn().getResponse().getContentAsString().trim();
 		
-		for(int i = 0;i < numeroInstancias ;i++) {
-			testeApi.criaInstancia(isbn, Tipo.LIVRE);
+		for(int i = 0;i < numeroExemplares ;i++) {
+			testeApi.criaExemplar(isbn, Tipo.LIVRE);
 		}
 		
-		for(int i = 0;i < numeroInstancias ;i++) {
+		for(int i = 0;i < numeroExemplares ;i++) {
 			testeApi.criaEmprestimo(Long.valueOf(idUsuario),Long.valueOf(idLivro),tempo)
 			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());			
 		}
@@ -65,7 +65,7 @@ public class NovoEmprestimoControllerTest {
 			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String titulo,
 			@ForAll @BigRange(min = "1", max = "100") BigDecimal valor,
 			@ForAll @Size(10) List<@NumericChars @Unique Character> listaDigitosIsbn,
-			@ForAll @IntRange(min=1,max=10) int numeroInstancias,
+			@ForAll @IntRange(min=1,max=10) int numeroExemplares,
 			@ForAll @IntRange(min = 1,max = 60) int tempo,
 			@ForAll Tipo tipoInstancia)
 			throws Exception {
@@ -76,11 +76,11 @@ public class NovoEmprestimoControllerTest {
 		String idLivro = testeApi.criaLivro(titulo, valor,isbn).andReturn().getResponse().getContentAsString().trim();
 		String idUsuario = testeApi.criaUsuario(TipoUsuario.PESQUISADOR).andReturn().getResponse().getContentAsString().trim();
 		
-		for(int i = 0;i < numeroInstancias ;i++) {
-			testeApi.criaInstancia(isbn, tipoInstancia);
+		for(int i = 0;i < numeroExemplares ;i++) {
+			testeApi.criaExemplar(isbn, tipoInstancia);
 		}
 		
-		for(int i = 0;i < numeroInstancias ;i++) {
+		for(int i = 0;i < numeroExemplares ;i++) {
 			testeApi.criaEmprestimo(Long.valueOf(idUsuario),Long.valueOf(idLivro),tempo)
 			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());			
 		}

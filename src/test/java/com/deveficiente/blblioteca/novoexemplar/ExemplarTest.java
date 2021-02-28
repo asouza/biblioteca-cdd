@@ -1,4 +1,4 @@
-package com.deveficiente.blblioteca.novainstancia;
+package com.deveficiente.blblioteca.novoexemplar;
 
 import java.math.BigDecimal;
 import java.time.Instant;

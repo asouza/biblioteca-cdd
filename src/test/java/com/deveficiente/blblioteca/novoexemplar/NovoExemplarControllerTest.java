@@ -1,4 +1,4 @@
-package com.deveficiente.blblioteca.novainstancia;
+package com.deveficiente.blblioteca.novoexemplar;
 
 import java.math.BigDecimal;
 
@@ -16,7 +16,7 @@ import com.deveficiente.blblioteca.novoexemplar.Tipo;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class NovaInstanciaControllerTest {
+public class NovoExemplarControllerTest {
 
 	@Autowired
 	private TesteApi testeApi;
@@ -32,7 +32,7 @@ public class NovaInstanciaControllerTest {
 
 		testeApi.criaLivro("titulo", BigDecimal.ONE, isbn);
 		
-		ResultActions actions = testeApi.criaInstancia(isbn,Tipo.valueOf(tipo));
+		ResultActions actions = testeApi.criaExemplar(isbn,Tipo.valueOf(tipo));
 		actions.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
 
 	}

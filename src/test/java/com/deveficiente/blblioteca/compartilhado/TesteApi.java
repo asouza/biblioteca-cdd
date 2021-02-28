@@ -62,7 +62,7 @@ public class TesteApi {
 				});
 	}
 
-	public ResultActions criaInstancia(String isbn, Tipo tipo) throws Exception {
+	public ResultActions criaExemplar(String isbn, Tipo tipo) throws Exception {
 		String payload = new ObjectMapper()
 				.writeValueAsString(
 						Map.of("tipo",tipo));
