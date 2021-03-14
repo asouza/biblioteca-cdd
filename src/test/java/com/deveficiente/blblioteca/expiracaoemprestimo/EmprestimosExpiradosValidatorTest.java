@@ -71,4 +71,31 @@ public class EmprestimosExpiradosValidatorTest {
 		Assertions.assertEquals(1, errors.getErrorCount());
 		Mockito.verify(manager).find(Usuario.class, 1l);
 	}
+	
+	@Test
+	@DisplayName("deveria deixar passar no caso de emprestimos não expirados")
+	void teste3() throws Exception {
+		
+		
+		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
+		ReflectionTestUtils.setField(usuario, "id", 1l);
+		Livro livro = new Livro("titulo", new BigDecimal("10"), "9743298743");		
+		livro.novoExemplar(Tipo.LIVRE);
+		usuario.criaEmprestimo(livro, 10);
+		
+		EntityManager manager = Mockito.mock(EntityManager.class);
+		Mockito.when(manager.find(Usuario.class, 1l)).thenReturn(usuario);
+		
+		Clock relogio = Clock.fixed(Instant.now().plus(10, ChronoUnit.DAYS),
+				ZoneId.systemDefault());
+		
+		EmprestimosExpiradosValidator validador = new EmprestimosExpiradosValidator(
+				manager, relogio);
+		
+		NovoEmprestimoRequest novoEmprestimoRequest = new NovoEmprestimoRequest(1l, 1l);
+		Errors errors = new BeanPropertyBindingResult(novoEmprestimoRequest, "object");
+		validador.validate(novoEmprestimoRequest, errors);
+		
+		Assertions.assertEquals(0, errors.getErrorCount());		
+	}
 }

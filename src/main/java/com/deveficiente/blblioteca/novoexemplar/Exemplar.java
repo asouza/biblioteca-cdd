@@ -33,7 +33,7 @@ public class Exemplar {
 	//1
 	@ManyToOne
 	private @NotNull @Valid Livro livro;
-	@OneToMany(mappedBy = "instanciaSelecionada")
+	@OneToMany(mappedBy = "exemplarSelecionado")
 	//1
 	@OrderBy("instanteEmprestimo asc")
 	private SortedSet<Emprestimo> emprestimos = new TreeSet<>();

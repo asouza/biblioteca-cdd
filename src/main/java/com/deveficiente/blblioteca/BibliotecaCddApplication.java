@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BibliotecaCddApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BibliotecaCddApplication.class, args);
+		SpringApplication.run(BibliotecaCddApplication.class, args);		
 	}
 	
 

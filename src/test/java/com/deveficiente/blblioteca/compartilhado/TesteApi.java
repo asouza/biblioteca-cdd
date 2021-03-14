@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.deveficiente.blblioteca.novoexemplar.Tipo;
+import com.deveficiente.blblioteca.novolivro.NovoLivroRequest;
 import com.deveficiente.blblioteca.novousuario.TipoUsuario;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

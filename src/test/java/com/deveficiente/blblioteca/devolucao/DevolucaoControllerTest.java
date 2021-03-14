@@ -48,8 +48,34 @@ public class DevolucaoControllerTest {
 	}
 	
 	@Test
-	@DisplayName("deveria liberar devolucao do exemplar")
+	@DisplayName("bloqueia devolucao de exemplar caso ela já tenha sido feita")
 	void teste2() throws Exception {
+		
+		
+		Usuario usuario = new Usuario(TipoUsuario.PADRAO);
+		ReflectionTestUtils.setField(usuario, "id", 1l);
+		Livro livro = new Livro("titulo", new BigDecimal("10"), "9743298743");		
+		livro.novoExemplar(Tipo.LIVRE);
+		Emprestimo emprestimo = usuario.criaEmprestimo(livro, 10);
+		emprestimo.devolve(usuario);
+		
+		EntityManager manager = Mockito.mock(EntityManager.class);
+		Mockito.when(manager.find(Emprestimo.class, 1l)).thenReturn(emprestimo);
+	
+		
+		Mockito.when(manager.find(Usuario.class, 1l)).thenReturn(usuario);
+		
+		DevolucaoRequest request = new DevolucaoRequest(1l, 1l);
+		
+		DevolucaoController devolucaoController = new DevolucaoController(manager);
+		ResponseEntity<?> resposta = devolucaoController.devolve(request);
+		
+		Assertions.assertEquals(HttpStatus.BAD_REQUEST, resposta.getStatusCode());
+	}
+	
+	@Test
+	@DisplayName("deveria liberar devolucao do exemplar")
+	void teste3() throws Exception {
 		
 		
 		Usuario usuario = new Usuario(TipoUsuario.PADRAO);

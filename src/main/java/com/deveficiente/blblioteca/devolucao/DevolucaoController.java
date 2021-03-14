@@ -25,14 +25,22 @@ public class DevolucaoController {
 	@PostMapping(value = "/api/devolucoes")
 	@Transactional
 	public ResponseEntity<?> devolve(
+			//1
 			@Valid @RequestBody DevolucaoRequest request) {
 
+		//1
 		Emprestimo emprestimo = manager.find(Emprestimo.class,
 				request.idEmprestimo);
+		//1
 		Usuario usuario = manager.find(Usuario.class, request.idUsuario);
 
+		//1
 		if (!emprestimo.pertence(usuario)) {
 			return ResponseEntity.notFound().build();
+		}
+		
+		if(emprestimo.foiDevolvido()) {
+			return ResponseEntity.badRequest().build();
 		}
 
 		emprestimo.devolve(usuario);
